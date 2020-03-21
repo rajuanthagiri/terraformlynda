@@ -1,0 +1,22 @@
+!# /bin/bash
+#############################################################
+# This script is meant to create a user with custom password#
+#############################################################
+
+# Prompt for user name
+read -p "Please enter the USERNAME :" USERNAME
+echo "The username entered by you is $USERNAME"
+# Check whether username already exists-If yes, throw error else create the user#
+EXISTINGUSER=$(cat /etc/passwd | grep -w $USERNAME | cut -d ":" | -f 1)
+echo $EXISTINGUSER
+
+if [ "$EXISTINGUSER" = "$USERNAME"]
+then echo "USER ALREADY EXISTS"
+else 
+echo "CREATE THE USER"
+useradd -m "User $USERNAME is created successfully"
+fi
+
+#read -s -p "Please enter the password:" PASSWORD 
+#useradd -m $USERNAME
+#echo 
