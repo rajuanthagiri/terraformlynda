@@ -1,0 +1,38 @@
+# ##for installing latest AWS CLI in Linux machine
+apt update && apt install python3-pip -y
+pip3
+pip3 install awscli
+#################
+aws --version
+aws configure
+##################
+aws s3 ls
+aws s3 help
+aws s3api create-bucket --bucket my-bucket --region us-east-1
+####### To resolve LocationConstraint errors ########
+aws s3api create-bucket --bucket shellscript21302020 --region eu-west-2 --create-bucket-configuration LocationConstraint=eu-west-2
+### To create multiple s3 buckets with single script######
+
+#! /bin/bash
+### To create multiple s3 buckets with single script ######
+i=0
+while [ $i -lt 10 ]
+do
+aws s3api create-bucket --bucket shellscript21302020$i --region eu-west-2 --create-bucket-configuration LocationConstraint=eu-west-2
+echo "The bucket name is shellscript21302020$i"
+i=$((i+1))
+done
+echo "The total number of buckets created are $i"
+####################
+
+### To delete multiple s3 buckets with single script ######
+i=0
+while [ $i -lt 10 ]
+do
+aws s3api delete-bucket --bucket shellscript21302020$i --region eu-west-2 
+echo "The deleted bucket name is shellscript21302020$i"
+i=$((i+1))
+done
+echo "The total number of buckets deleted are $i"
+####################
+
