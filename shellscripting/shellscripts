@@ -9,14 +9,21 @@ echo "The username entered by you is $USERNAME"
 # Check whether username already exists-If yes, throw error else create the user#
 EXISTINGUSER=$(cat /etc/passwd | grep -w $USERNAME | cut -d ":" -f 1)
 
-if [ "$EXISTINGUSER" = "$USERNAME" ] 
-then echo "USER ALREADY EXISTS"
-else 
-echo "CREATE THE USER"
-useradd -m $USERNAME
-echo "User $USERNAME is created successfully"
+if [ "$EXISTINGUSER" = "$USERNAME" ]; then
+    echo "USER ALREADY EXISTS"
+else
+    echo "CREATE THE USER"
+    useradd -m $USERNAME
+    SPEC='!"£$%^&*()_'
+    SPECCHAR=$(echo $SPEC | fold -w1 | shuf | head -1)
+    PASS=Devops@${RANDOM}${SPECCHAR}
+    echo "User $USERNAME is created successfully and password is $PASS"
+    echo "$USERNAME:$PASS" | sudo chpasswd
+    passwd -e $USERNAME
 fi
 
-#read -s -p "Please enter the password:" PASSWORD 
+#read -s -p "Please enter the password:" PASSWORD
 #useradd -m $USERNAME
-#echo 
+#echo
+
+### For deleting user - userdel -r $USERNAME###
